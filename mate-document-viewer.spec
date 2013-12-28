@@ -43,7 +43,7 @@ BuildRequires:	mate-doc-utils
 BuildRequires:	mate-icon-theme-devel >= 1.1.0
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.14.0
-BuildRequires:	rpmbuild(find_lang) >= 1.23
+BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	scrollkeeper
 BuildRequires:	t1lib-devel
