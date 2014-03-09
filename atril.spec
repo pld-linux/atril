@@ -5,41 +5,40 @@
 #
 # Conditional build:
 %bcond_without	apidocs		# gtk-doc documentation
-%bcond_without	caja		# Caja (mate-file-manager) plugin
+%bcond_without	caja		# Caja plugin
 %bcond_with	gtk3		# use GTK+ 3.x instead of 2.x
 
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
-Name:		mate-document-viewer
-Version:	1.6.2
+Name:		atril
+Version:	1.8.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	8805ad4b0818681c5871d36bb77f8a74
+Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
+# Source0-md5:	e7626e8e3cffe6ee256cc6cf7acb7524
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.10.0
+%{?with_caja:BuildRequires:	caja-devel}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel >= 0.10.40
-BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	glib2-devel >= 1:2.32.0
 BuildRequires:	gobject-introspection-devel >= 0.6
-%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.22.0}
+%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.24.0}
 %{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libgxps-devel >= 0.0.1
-BuildRequires:	libmatekeyring-devel >= 1.1.0
+BuildRequires:	libsecret-devel >= 0.15
 BuildRequires:	libspectre-devel >= 0.2.0
-BuildRequires:	libtiff-devel
+BuildRequires:	libtiff-devel >= 3.6
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	libxml2-devel >= 1:2.5.0
 BuildRequires:	mate-common
-BuildRequires:	mate-doc-utils
-%{?with_caja:BuildRequires:	mate-file-manager-devel}
 BuildRequires:	mate-icon-theme-devel >= 1.1.0
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.14.0
@@ -51,6 +50,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libSM-devel >= 1.0.0
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xz
+BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.26.0
@@ -61,18 +61,19 @@ Requires:	%{name}-libs = %{version}-%{release}
 %{!?with_gtk3:Requires:	gtk+2 >= 2:2.22.0}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Requires:	xorg-lib-libSM >= 1.0.0
-Suggests:	mate-document-viewer-backend-djvu
-Suggests:	mate-document-viewer-backend-dvi
-Suggests:	mate-document-viewer-backend-pdf
-Suggests:	mate-document-viewer-backend-ps
-Suggests:	mate-document-viewer-backend-xps
+Suggests:	atril-backend-djvu
+Suggests:	atril-backend-dvi
+Suggests:	atril-backend-pdf
+Suggests:	atril-backend-ps
+Suggests:	atril-backend-xps
 %{!?with_gtk3:Suggests:	gtk+2-cups}
 %{?with_gtk3:Suggests:	gtk+3-cups}
 # sr@Latn vs. sr@latin
+Obsoletes:	mate-document-viewer
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		backendsdir	%{_libdir}/mate-document-viewer/3/backends
+%define		backendsdir	%{_libdir}/atril/3/backends
 
 %description
 Atril is a document viewer for multiple document formats like PDF and
@@ -89,6 +90,7 @@ Group:		X11/Libraries
 Requires:	glib2 >= 1:2.26.0
 %{!?with_gtk3:Requires:	gtk+2 >= 2:2.22.0}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
+Obsoletes:	mate-document-viewer-libs
 
 %description libs
 Atril shared libraries.
@@ -104,6 +106,7 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.26.0
 %{!?with_gtk3:Requires:	gtk+2-devel >= 2:2.22.0}
 %{?with_gtk3:Requires:	gtk+3-devel >= 3.0.0}
+Obsoletes:	mate-document-viewer-devel
 
 %description devel
 Header files for Atril libraries.
@@ -116,6 +119,7 @@ Summary:	Atril API documentation
 Summary(pl.UTF-8):	Dokumentacja API aplikacji Atril
 Group:		Documentation
 Requires:	gtk-doc-common
+Obsoletes:	mate-document-viewer-apidocs
 
 %description apidocs
 Atril API documentation.
@@ -129,6 +133,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów DjVu w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	djvulibre >= 3.5.17
+Obsoletes:	mate-document-viewer-backend-djvu
 
 %description backend-djvu
 View DJVu documents with Atril.
@@ -141,6 +146,7 @@ Summary:	View DVI documents with Atril
 Summary(pl.UTF-8):	Przeglądanie dokumentów DVI w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:	mate-document-viewer-backend-dvi
 
 %description backend-dvi
 View DVI documents with Atril.
@@ -154,6 +160,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów PDF w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	poppler-glib >= 0.14.0
+Obsoletes:	mate-document-viewer-backend-pdf
 
 %description backend-pdf
 View PDF documents with Atril.
@@ -167,6 +174,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów PostScript w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libspectre >= 0.2.0
+Obsoletes:	mate-document-viewer-backend-ps
 
 %description backend-ps
 View PostScript documents with Atril.
@@ -180,6 +188,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów XPS w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libgxps >= 0.0.1
+Obsoletes:	mate-document-viewer-backend-xps
 
 %description backend-xps
 View XPS documents with Atril.
@@ -187,17 +196,18 @@ View XPS documents with Atril.
 %description backend-xps -l pl.UTF-8
 Przeglądanie dokumentów XPS w przeglądarce Atril.
 
-%package -n mate-file-manager-extension-atril
+%package -n caja-extension-atril
 Summary:	Atril extension for Caja file manager
 Summary(pl.UTF-8):	Rozszerzenie Atril dla zarządcy plików Caja
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	mate-file-manager
+Requires:	caja
+Obsoletes:	mate-file-manager-extension-atril
 
-%description -n mate-file-manager-extension-atril
+%description -n caja-extension-atril
 Shows Atril document properties in Caja file manager.
 
-%description -n mate-file-manager-extension-atril -l pl.UTF-8
+%description -n caja-extension-atril -l pl.UTF-8
 Pokazuje właściwości dokumentu przeglądarki Atril w zarządcy plików
 Caja.
 
@@ -238,6 +248,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libatril*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/atril/3/backends/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/caja/extensions-2.0/*.la
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/cmn
 
 # mate < 1.5 did not exist in pld, avoid dependency on mate-conf
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/MateConf/gsettings/atril.convert
@@ -281,7 +293,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/atril/3/backends/tiffdocument.atril-backend
 %{_datadir}/dbus-1/services/org.mate.atril.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.mate.Atril.gschema.xml
-%{_datadir}/mate-document-viewer
+%{_datadir}/atril
 %{_datadir}/thumbnailers/atril.thumbnailer
 %{_mandir}/man1/atril.1*
 %{_mandir}/man1/atril-previewer.1*
@@ -343,7 +355,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/atril/3/backends/xpsdocument.atril-backend
 
 %if %{with caja}
-%files -n mate-file-manager-extension-atril
+%files -n caja-extension-atril
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/caja/extensions-2.0/libatril-properties-page.so
 %endif
