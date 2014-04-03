@@ -12,7 +12,7 @@ Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
 Version:	1.8.0
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
@@ -120,6 +120,9 @@ Summary(pl.UTF-8):	Dokumentacja API aplikacji Atril
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	mate-document-viewer-apidocs
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 Atril API documentation.
