@@ -44,7 +44,6 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.14.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.592
-BuildRequires:	scrollkeeper
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libSM-devel >= 1.0.0
@@ -53,13 +52,15 @@ BuildRequires:	xz
 BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.26.0
+Requires(post,postun):	glib2 >= 1:2.32.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
-Requires(post,postun):	scrollkeeper
 Requires:	%{name}-libs = %{version}-%{release}
-%{!?with_gtk3:Requires:	gtk+2 >= 2:2.22.0}
+%{!?with_gtk3:Requires:	gtk+2 >= 2:2.24.0}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
+Requires:	libsecret >= 0.15
+Requires:	libxml2 >= 1:2.5.0
+Requires:	mate-icon-theme >= 1.1.0
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	atril-backend-djvu
 Suggests:	atril-backend-dvi
@@ -87,8 +88,8 @@ czy PostScript. Jest to odgałęzienie pakietu Evince.
 Summary:	Atril shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone przeglądarki Atril
 Group:		X11/Libraries
-Requires:	glib2 >= 1:2.26.0
-%{!?with_gtk3:Requires:	gtk+2 >= 2:2.22.0}
+Requires:	glib2 >= 1:2.32.0
+%{!?with_gtk3:Requires:	gtk+2 >= 2:2.24.0}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Obsoletes:	mate-document-viewer-libs
 
@@ -103,8 +104,8 @@ Summary:	Header files for Atril libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek przeglądarki Atril
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.26.0
-%{!?with_gtk3:Requires:	gtk+2-devel >= 2:2.22.0}
+Requires:	glib2-devel >= 1:2.32.0
+%{!?with_gtk3:Requires:	gtk+2-devel >= 2:2.24.0}
 %{?with_gtk3:Requires:	gtk+3-devel >= 3.0.0}
 Obsoletes:	mate-document-viewer-devel
 
@@ -252,25 +253,21 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/atril/3/backends/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/caja/extensions-2.0/*.la
 
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/cmn
-
 # mate < 1.5 did not exist in pld, avoid dependency on mate-conf
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/MateConf/gsettings/atril.convert
 
-%find_lang atril --with-mate --with-omf
+%find_lang atril --with-mate
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 %update_desktop_database_post
-%scrollkeeper_update_post
 %update_icon_cache hicolor
 %glib_compile_schemas
 
 %postun
 %update_desktop_database_postun
-%scrollkeeper_update_postun
 %update_icon_cache hicolor
 %glib_compile_schemas
 
