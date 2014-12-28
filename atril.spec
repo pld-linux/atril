@@ -24,7 +24,7 @@ BuildRequires:	cairo-devel >= 1.10.0
 %{?with_caja:BuildRequires:	caja-devel}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	gettext-devel >= 0.10.40
+BuildRequires:	gettext-tools >= 0.10.40
 BuildRequires:	glib2-devel >= 1:2.32.0
 BuildRequires:	gobject-introspection-devel >= 0.6
 %{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.24.0}
