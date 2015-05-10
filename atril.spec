@@ -11,12 +11,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.8.1
-Release:	2
+Version:	1.10.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	cad233200a1ad10b798c2aead11bad0b
+Source0:	http://pub.mate-desktop.org/releases/1.10/%{name}-%{version}.tar.xz
+# Source0-md5:	7f313068db354eee9e7282b9d0994e18
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -25,11 +25,13 @@ BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools >= 0.10.40
-BuildRequires:	glib2-devel >= 1:2.32.0
+BuildRequires:	glib2-devel >= 1:2.36.0
 BuildRequires:	gobject-introspection-devel >= 0.6
 %{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.24.0}
 %{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
+%{!?with_gtk3:BuildRequires:	gtk-webkit-devel >= 2.4.3}
+%{?with_gtk3:BuildRequires:	gtk-webkit3-devel >= 2.4.3}
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libgxps-devel >= 0.0.1
@@ -39,9 +41,10 @@ BuildRequires:	libtiff-devel >= 3.6
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	libxml2-devel >= 1:2.5.0
 BuildRequires:	mate-common
+BuildRequires:	mate-desktop-devel >= 1.9.0
 BuildRequires:	mate-icon-theme-devel >= 1.1.0
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.14.0
+BuildRequires:	poppler-glib-devel >= 0.16.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	t1lib-devel
@@ -52,7 +55,7 @@ BuildRequires:	xz
 BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.32.0
+Requires(post,postun):	glib2 >= 1:2.36.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	%{name}-libs = %{version}-%{release}
@@ -60,6 +63,7 @@ Requires:	%{name}-libs = %{version}-%{release}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Requires:	libsecret >= 0.15
 Requires:	libxml2 >= 1:2.5.0
+Requires:	mate-desktop-libs >= 1.9.0
 Requires:	mate-icon-theme >= 1.1.0
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	atril-backend-djvu
@@ -88,7 +92,8 @@ czy PostScript. Jest to odgałęzienie pakietu Evince.
 Summary:	Atril shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone przeglądarki Atril
 Group:		X11/Libraries
-Requires:	glib2 >= 1:2.32.0
+Requires:	cairo >= 1.10.0
+Requires:	glib2 >= 1:2.36.0
 %{!?with_gtk3:Requires:	gtk+2 >= 2:2.24.0}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Obsoletes:	mate-document-viewer-libs
@@ -104,7 +109,7 @@ Summary:	Header files for Atril libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek przeglądarki Atril
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.32.0
+Requires:	glib2-devel >= 1:2.36.0
 %{!?with_gtk3:Requires:	gtk+2-devel >= 2:2.24.0}
 %{?with_gtk3:Requires:	gtk+3-devel >= 3.0.0}
 Obsoletes:	mate-document-viewer-devel
@@ -158,12 +163,30 @@ View DVI documents with Atril.
 %description backend-dvi -l pl.UTF-8
 Przeglądanie dokumentów DVI w przeglądarce Atril.
 
+%package backend-epub
+Summary:	View ePub documents with Atril
+Summary(pl.UTF-8):	Przeglądanie dokumentów ePub w przeglądarce Atril
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+Requires:	libxml2 >= 1:2.5.0
+%if %{with gtk3}
+Requires:	gtk-webkit3 >= 2.4.3
+%else
+Requires:	gtk-webkit >= 2.4.3
+%endif
+
+%description backend-epub
+View ePub documents with Atril.
+
+%description backend-epub -l pl.UTF-8
+Przeglądanie dokumentów ePub w przeglądarce Atril.
+
 %package backend-pdf
 Summary:	View PDF documents with Atril
 Summary(pl.UTF-8):	Przeglądanie dokumentów PDF w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	poppler-glib >= 0.14.0
+Requires:	poppler-glib >= 0.16.0
 Obsoletes:	mate-document-viewer-backend-pdf
 
 %description backend-pdf
@@ -291,9 +314,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/atril/3/backends/pixbufdocument.atril-backend
 %attr(755,root,root) %{_libdir}/atril/3/backends/libtiffdocument.so
 %{_libdir}/atril/3/backends/tiffdocument.atril-backend
+%{_datadir}/atril
+%{_datadir}/appdata/atril.appdata.xml
 %{_datadir}/dbus-1/services/org.mate.atril.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.mate.Atril.gschema.xml
-%{_datadir}/atril
 %{_datadir}/thumbnailers/atril.thumbnailer
 %{_mandir}/man1/atril.1*
 %{_mandir}/man1/atril-previewer.1*
@@ -339,6 +363,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/atril/3/backends/libdvidocument.so
 %{_libdir}/atril/3/backends/dvidocument.atril-backend
 
+%files backend-epub
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/atril/3/backends/libepubdocument.so
+%{_libdir}/atril/3/backends/epubdocument.atril-backend
+%{_libdir}/atril/3/backends/epub
+
 %files backend-ps
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libpsdocument.so
@@ -358,4 +388,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n caja-extension-atril
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/caja/extensions-2.0/libatril-properties-page.so
+%{_datadir}/caja/extensions/libatril-properties-page.caja-extension
 %endif
