@@ -11,12 +11,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.10.0
+Version:	1.10.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://pub.mate-desktop.org/releases/1.10/%{name}-%{version}.tar.xz
-# Source0-md5:	7f313068db354eee9e7282b9d0994e18
+# Source0-md5:	7f23275ac4e82a61de0e7fb822c065a1
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -31,7 +31,7 @@ BuildRequires:	gobject-introspection-devel >= 0.6
 %{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 %{!?with_gtk3:BuildRequires:	gtk-webkit-devel >= 2.4.3}
-%{?with_gtk3:BuildRequires:	gtk-webkit3-devel >= 2.4.3}
+%{?with_gtk3:BuildRequires:	gtk-webkit4-devel >= 2.4.3}
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libgxps-devel >= 0.0.1
@@ -170,7 +170,7 @@ Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2 >= 1:2.5.0
 %if %{with gtk3}
-Requires:	gtk-webkit3 >= 2.4.3
+Requires:	gtk-webkit4 >= 2.4.3
 %else
 Requires:	gtk-webkit >= 2.4.3
 %endif
