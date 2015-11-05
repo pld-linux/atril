@@ -11,12 +11,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.10.2
+Version:	1.12.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://pub.mate-desktop.org/releases/1.10/%{name}-%{version}.tar.xz
-# Source0-md5:	53173eb29b3b6a906c2470d7572cca02
+Source0:	http://pub.mate-desktop.org/releases/1.12/%{name}-%{version}.tar.xz
+# Source0-md5:	b970dffa438b2420f3ed2f6088835319
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -32,7 +32,7 @@ BuildRequires:	gobject-introspection-devel >= 0.6
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 %{!?with_gtk3:BuildRequires:	gtk-webkit-devel >= 2.4.3}
 %{?with_gtk3:BuildRequires:	gtk-webkit4-devel >= 2.4.3}
-BuildRequires:	intltool >= 0.35.0
+BuildRequires:	intltool >= 0.50.1
 BuildRequires:	kpathsea-devel
 BuildRequires:	libgxps-devel >= 0.0.1
 BuildRequires:	libsecret-devel >= 0.15
@@ -42,7 +42,6 @@ BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	libxml2-devel >= 1:2.5.0
 BuildRequires:	mate-common
 BuildRequires:	mate-desktop-devel >= 1.9.0
-BuildRequires:	mate-icon-theme-devel >= 1.1.0
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.16.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
@@ -64,7 +63,6 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	libsecret >= 0.15
 Requires:	libxml2 >= 1:2.5.0
 Requires:	mate-desktop-libs >= 1.9.0
-Requires:	mate-icon-theme >= 1.1.0
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	atril-backend-djvu
 Suggests:	atril-backend-dvi
@@ -367,7 +365,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libepubdocument.so
 %{_libdir}/atril/3/backends/epubdocument.atril-backend
-%{_libdir}/atril/3/backends/epub
 
 %files backend-ps
 %defattr(644,root,root,755)
