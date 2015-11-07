@@ -34,7 +34,7 @@ BuildRequires:	gobject-introspection-devel >= 0.6
 %{?with_gtk3:BuildRequires:	gtk-webkit4-devel >= 2.4.3}
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	kpathsea-devel
-BuildRequires:	libgxps-devel >= 0.0.1
+BuildRequires:	libgxps-devel >= 0.2.0
 BuildRequires:	libsecret-devel >= 0.15
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel >= 3.6
@@ -212,7 +212,7 @@ Summary:	View XPS documents with Atril
 Summary(pl.UTF-8):	Przeglądanie dokumentów XPS w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	libgxps >= 0.0.1
+Requires:	libgxps >= 0.2.0
 Obsoletes:	mate-document-viewer-backend-xps
 
 %description backend-xps
