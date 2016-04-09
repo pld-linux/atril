@@ -11,12 +11,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.12.2
+Version:	1.14.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://pub.mate-desktop.org/releases/1.12/%{name}-%{version}.tar.xz
-# Source0-md5:	66d217a5759b9195b1650e47621bf0ab
+Source0:	http://pub.mate-desktop.org/releases/1.14/%{name}-%{version}.tar.xz
+# Source0-md5:	e200eb7c29fe697ce7bc6a3bbfd9cf64
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -273,9 +273,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libatril*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/atril/3/backends/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/caja/extensions-2.0/*.la
-
-# mate < 1.5 did not exist in pld, avoid dependency on mate-conf
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/MateConf/gsettings/atril.convert
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{frp,jv}
 
 %find_lang atril --with-mate
 
