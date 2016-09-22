@@ -11,12 +11,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.14.2
+Version:	1.16.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://pub.mate-desktop.org/releases/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	7741b7463b7e75f60c27848bd942db8b
+Source0:	http://pub.mate-desktop.org/releases/1.16/%{name}-%{version}.tar.xz
+# Source0-md5:	a818e8bb191aee6af5274167b973d6b1
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -41,9 +41,8 @@ BuildRequires:	libtiff-devel >= 3.6
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	libxml2-devel >= 1:2.5.0
 BuildRequires:	mate-common
-BuildRequires:	mate-desktop-devel >= 1.9.0
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.16.0
+BuildRequires:	poppler-glib-devel >= 0.18.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	t1lib-devel
@@ -62,7 +61,6 @@ Requires:	%{name}-libs = %{version}-%{release}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Requires:	libsecret >= 0.15
 Requires:	libxml2 >= 1:2.5.0
-Requires:	mate-desktop-libs >= 1.9.0
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	atril-backend-djvu
 Suggests:	atril-backend-dvi
@@ -273,7 +271,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libatril*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/atril/3/backends/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/caja/extensions-2.0/*.la
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{frp,jv}
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{frp,jv,pms}
 
 %find_lang atril --with-mate
 
@@ -295,7 +293,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f atril.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/atril
 %attr(755,root,root) %{_bindir}/atril-previewer
 %attr(755,root,root) %{_bindir}/atril-thumbnailer
