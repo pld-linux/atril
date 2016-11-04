@@ -11,12 +11,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.16.0
+Version:	1.16.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://pub.mate-desktop.org/releases/1.16/%{name}-%{version}.tar.xz
-# Source0-md5:	a818e8bb191aee6af5274167b973d6b1
+# Source0-md5:	17c34c77366c9dbc9a4a390a190f62ea
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -34,7 +34,7 @@ BuildRequires:	gobject-introspection-devel >= 0.6
 %{?with_gtk3:BuildRequires:	gtk-webkit4-devel >= 2.4.3}
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	kpathsea-devel
-BuildRequires:	libgxps-devel >= 0.2.0
+BuildRequires:	libgxps-devel >= 0.2.1
 BuildRequires:	libsecret-devel >= 0.15
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel >= 3.6
@@ -42,7 +42,7 @@ BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	libxml2-devel >= 1:2.5.0
 BuildRequires:	mate-common
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.18.0
+BuildRequires:	poppler-glib-devel >= 0.22.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	t1lib-devel
@@ -182,7 +182,7 @@ Summary:	View PDF documents with Atril
 Summary(pl.UTF-8):	Przeglądanie dokumentów PDF w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	poppler-glib >= 0.16.0
+Requires:	poppler-glib >= 0.22.0
 Obsoletes:	mate-document-viewer-backend-pdf
 
 %description backend-pdf
@@ -210,7 +210,7 @@ Summary:	View XPS documents with Atril
 Summary(pl.UTF-8):	Przeglądanie dokumentów XPS w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	libgxps >= 0.2.0
+Requires:	libgxps >= 0.2.1
 Obsoletes:	mate-document-viewer-backend-xps
 
 %description backend-xps
