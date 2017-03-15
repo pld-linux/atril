@@ -6,32 +6,29 @@
 # Conditional build:
 %bcond_without	apidocs		# gtk-doc documentation
 %bcond_without	caja		# Caja plugin
-%bcond_with	gtk3		# use GTK+ 3.x instead of 2.x
 
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.16.1
+Version:	1.18.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://pub.mate-desktop.org/releases/1.16/%{name}-%{version}.tar.xz
-# Source0-md5:	17c34c77366c9dbc9a4a390a190f62ea
+Source0:	http://pub.mate-desktop.org/releases/1.18/%{name}-%{version}.tar.xz
+# Source0-md5:	f1e5ac18bc028ee0e92be4212d666dfa
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.10.0
-%{?with_caja:BuildRequires:	caja-devel}
+%{?with_caja:BuildRequires:	caja-devel >= 1.17.1}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools >= 0.10.40
 BuildRequires:	glib2-devel >= 1:2.36.0
 BuildRequires:	gobject-introspection-devel >= 0.6
-%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.24.0}
-%{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
+BuildRequires:	gtk+3-devel >= 3.14
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
-%{!?with_gtk3:BuildRequires:	gtk-webkit-devel >= 2.4.3}
-%{?with_gtk3:BuildRequires:	gtk-webkit4-devel >= 2.4.3}
+BuildRequires:	gtk-webkit4-devel >= 2.4.3
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	kpathsea-devel
 BuildRequires:	libgxps-devel >= 0.2.1
@@ -57,8 +54,7 @@ Requires(post,postun):	glib2 >= 1:2.36.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	%{name}-libs = %{version}-%{release}
-%{!?with_gtk3:Requires:	gtk+2 >= 2:2.24.0}
-%{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
+Requires:	gtk+3 >= 3.14
 Requires:	libsecret >= 0.15
 Requires:	libxml2 >= 1:2.5.0
 Requires:	xorg-lib-libSM >= 1.0.0
@@ -67,8 +63,7 @@ Suggests:	atril-backend-dvi
 Suggests:	atril-backend-pdf
 Suggests:	atril-backend-ps
 Suggests:	atril-backend-xps
-%{!?with_gtk3:Suggests:	gtk+2-cups}
-%{?with_gtk3:Suggests:	gtk+3-cups}
+Suggests:	gtk+3-cups
 # sr@Latn vs. sr@latin
 Obsoletes:	mate-document-viewer
 Conflicts:	glibc-misc < 6:2.7
@@ -90,8 +85,7 @@ Summary(pl.UTF-8):	Biblioteki współdzielone przeglądarki Atril
 Group:		X11/Libraries
 Requires:	cairo >= 1.10.0
 Requires:	glib2 >= 1:2.36.0
-%{!?with_gtk3:Requires:	gtk+2 >= 2:2.24.0}
-%{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
+Requires:	gtk+3 >= 3.14
 Obsoletes:	mate-document-viewer-libs
 
 %description libs
@@ -106,8 +100,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek przeglądarki Atril
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.36.0
-%{!?with_gtk3:Requires:	gtk+2-devel >= 2:2.24.0}
-%{?with_gtk3:Requires:	gtk+3-devel >= 3.0.0}
+Requires:	gtk+3-devel >= 3.14
 Obsoletes:	mate-document-viewer-devel
 
 %description devel
@@ -165,11 +158,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów ePub w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2 >= 1:2.5.0
-%if %{with gtk3}
 Requires:	gtk-webkit4 >= 2.4.3
-%else
-Requires:	gtk-webkit >= 2.4.3
-%endif
 
 %description backend-epub
 View ePub documents with Atril.
@@ -224,7 +213,7 @@ Summary:	Atril extension for Caja file manager
 Summary(pl.UTF-8):	Rozszerzenie Atril dla zarządcy plików Caja
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	caja
+Requires:	caja >= 1.17.1
 Obsoletes:	mate-file-manager-extension-atril
 
 %description -n caja-extension-atril
@@ -258,7 +247,6 @@ Caja.
 	--disable-silent-rules \
 	--disable-static \
 	--enable-tiff \
-	%{?with_gtk3:--with-gtk=3.0} \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
@@ -271,7 +259,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libatril*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/atril/3/backends/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/caja/extensions-2.0/*.la
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{frp,jv,pms}
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{frp,ku_IQ,jv,pms}
 
 %find_lang atril --with-mate
 
@@ -297,7 +285,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/atril
 %attr(755,root,root) %{_bindir}/atril-previewer
 %attr(755,root,root) %{_bindir}/atril-thumbnailer
-%attr(755,root,root) %{_libexecdir}/atril-convert-metadata
 %attr(755,root,root) %{_libexecdir}/atrild
 %dir %{_libdir}/atril
 %dir %{_libdir}/atril/3
