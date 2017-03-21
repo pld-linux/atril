@@ -56,6 +56,7 @@ Requires(post,postun):	hicolor-icon-theme
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	gtk+3 >= 3.14
 Requires:	libsecret >= 0.15
+Requires:	libtiff >= 3.6
 Requires:	libxml2 >= 1:2.5.0
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	atril-backend-djvu
@@ -63,7 +64,7 @@ Suggests:	atril-backend-dvi
 Suggests:	atril-backend-pdf
 Suggests:	atril-backend-ps
 Suggests:	atril-backend-xps
-Suggests:	gtk+3-cups
+Suggests:	gtk+3-cups >= 3.14
 # sr@Latn vs. sr@latin
 Obsoletes:	mate-document-viewer
 Conflicts:	glibc-misc < 6:2.7
