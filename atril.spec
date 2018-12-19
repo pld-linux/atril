@@ -64,7 +64,7 @@ Suggests:	atril-backend-dvi
 Suggests:	atril-backend-pdf
 Suggests:	atril-backend-ps
 Suggests:	atril-backend-xps
-Suggests:	gtk+3-cups >= 3.14
+Suggests:	gtk+3-cups >= 3.22
 # sr@Latn vs. sr@latin
 Obsoletes:	mate-document-viewer
 Conflicts:	glibc-misc < 6:2.7
