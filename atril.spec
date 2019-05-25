@@ -262,7 +262,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/atril/3/backends/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/caja/extensions-2.0/*.la
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{es_ES,frp,ku_IQ,jv,nqo,pms,ur_PK}
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/help/{es_AR,es_CL,kab,ks,ku_IQ}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/help/ku_IQ
 
 %find_lang atril --with-mate
 
