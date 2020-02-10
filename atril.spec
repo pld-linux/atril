@@ -10,26 +10,25 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.22.3
+Version:	1.24.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://pub.mate-desktop.org/releases/1.22/%{name}-%{version}.tar.xz
-# Source0-md5:	9d93c8452569570bd7fd60e1a4683ec4
+Source0:	http://pub.mate-desktop.org/releases/1.24/%{name}-%{version}.tar.xz
+# Source0-md5:	83a1ca50dee0ac8bcd8aa9f75dc304f8
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
-BuildRequires:	cairo-devel >= 1.10.0
+BuildRequires:	cairo-devel >= 1.14.0
 %{?with_caja:BuildRequires:	caja-devel >= 1.17.1}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	gettext-tools >= 0.10.40
-BuildRequires:	glib2-devel >= 1:2.50.0
+BuildRequires:	gettext-tools >= 0.19.8
+BuildRequires:	glib2-devel >= 1:2.62.0
 BuildRequires:	gobject-introspection-devel >= 0.6
 BuildRequires:	gtk+3-devel >= 3.22
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
-BuildRequires:	gtk-webkit4-devel >= 2.4.3
-BuildRequires:	intltool >= 0.50.1
+BuildRequires:	gtk-webkit4-devel >= 2.6.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libgxps-devel >= 0.2.1
 BuildRequires:	libsecret-devel >= 0.15
@@ -42,6 +41,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.22.0
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.592
+BuildRequires:	synctex-devel >= 1.21
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libSM-devel >= 1.0.0
@@ -50,7 +50,7 @@ BuildRequires:	xz
 BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.50.0
+Requires(post,postun):	glib2 >= 1:2.62.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	%{name}-libs = %{version}-%{release}
@@ -84,9 +84,10 @@ czy PostScript. Jest to odgałęzienie pakietu Evince.
 Summary:	Atril shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone przeglądarki Atril
 Group:		X11/Libraries
-Requires:	cairo >= 1.10.0
-Requires:	glib2 >= 1:2.50.0
+Requires:	cairo >= 1.14.0
+Requires:	glib2 >= 1:2.62.0
 Requires:	gtk+3 >= 3.22
+Requires:	synctex-libs >= 1.21
 Obsoletes:	mate-document-viewer-libs
 
 %description libs
@@ -100,7 +101,7 @@ Summary:	Header files for Atril libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek przeglądarki Atril
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.50.0
+Requires:	glib2-devel >= 1:2.62.0
 Requires:	gtk+3-devel >= 3.22
 Obsoletes:	mate-document-viewer-devel
 
@@ -159,7 +160,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów ePub w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2 >= 1:2.5.0
-Requires:	gtk-webkit4 >= 2.4.3
+Requires:	gtk-webkit4 >= 2.6.0
 
 %description backend-epub
 View ePub documents with Atril.
@@ -229,7 +230,6 @@ Caja.
 
 %build
 %{__gtkdocize}
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
