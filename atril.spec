@@ -6,6 +6,11 @@
 # Conditional build:
 %bcond_without	apidocs		# gtk-doc documentation
 %bcond_without	caja		# Caja plugin
+%bcond_without	djvu		# DJVU support
+%bcond_without	dvi		# DVI support
+%bcond_without	epub		# ePub support
+%bcond_without	ps		# PostScript support
+%bcond_without	xps		# XPS support
 
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
@@ -21,18 +26,20 @@ BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.14.0
 %{?with_caja:BuildRequires:	caja-devel >= 1.17.1}
-BuildRequires:	djvulibre-devel >= 3.5.17
+%{?with_djvu:BuildRequires:	djvulibre-devel >= 3.5.17}
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.62.0
 BuildRequires:	gobject-introspection-devel >= 0.6
 BuildRequires:	gtk+3-devel >= 3.22
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
-BuildRequires:	gtk-webkit4-devel >= 2.6.0
-BuildRequires:	kpathsea-devel
-BuildRequires:	libgxps-devel >= 0.2.1
+%{?with_epub:BuildRequires:	gtk-webkit4-devel >= 2.6.0}
+%{?with_dvi:BuildRequires:	kpathsea-devel}
+%{?with_xps:BuildRequires:	libgxps-devel >= 0.2.1}
 BuildRequires:	libsecret-devel >= 0.15
+%if %{with dvi} || %{with ps}
 BuildRequires:	libspectre-devel >= 0.2.0
+%endif
 BuildRequires:	libtiff-devel >= 3.6
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	libxml2-devel >= 1:2.5.0
@@ -238,17 +245,20 @@ Caja.
 %configure \
 	%{!?with_caja:--disable-caja} \
 	--enable-comics \
-	--enable-djvu \
-	--enable-dvi \
+	%{__enable_disable djvu} \
+	%{__enable_disable dvi} \
+	%{__enable_disable epub} \
 	%{?with_apidocs:--enable-gtk-doc} \
 	--enable-introspection \
 	--enable-t1lib \
 	--enable-pdf \
 	--enable-pixbuf \
+	%{__enable_disable ps} \
 	--disable-schemas-compile \
 	--disable-silent-rules \
 	--disable-static \
 	--enable-tiff \
+	%{__enable_disable xps} \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
@@ -337,35 +347,45 @@ rm -rf $RPM_BUILD_ROOT
 %{_gtkdocdir}/libatrilview-1.5.0
 %endif
 
+%if %{with djvu}
 %files backend-djvu
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libdjvudocument.so
 %{_libdir}/atril/3/backends/djvudocument.atril-backend
+%endif
 
+%if %{with dvi}
 %files backend-dvi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libdvidocument.so
 %{_libdir}/atril/3/backends/dvidocument.atril-backend
+%endif
 
+%if %{with epub}
 %files backend-epub
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libepubdocument.so
 %{_libdir}/atril/3/backends/epubdocument.atril-backend
+%endif
 
+%if %{with ps}
 %files backend-ps
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libpsdocument.so
 %{_libdir}/atril/3/backends/psdocument.atril-backend
+%endif
 
 %files backend-pdf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libpdfdocument.so
 %{_libdir}/atril/3/backends/pdfdocument.atril-backend
 
+%if %{with xps}
 %files backend-xps
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libxpsdocument.so
 %{_libdir}/atril/3/backends/xpsdocument.atril-backend
+%endif
 
 %if %{with caja}
 %files -n caja-extension-atril
