@@ -124,7 +124,7 @@ Summary(pl.UTF-8):	Dokumentacja API aplikacji Atril
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	mate-document-viewer-apidocs
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -368,17 +368,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/atril/3/backends/epubdocument.atril-backend
 %endif
 
+%files backend-pdf
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/atril/3/backends/libpdfdocument.so
+%{_libdir}/atril/3/backends/pdfdocument.atril-backend
+
 %if %{with ps}
 %files backend-ps
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/atril/3/backends/libpsdocument.so
 %{_libdir}/atril/3/backends/psdocument.atril-backend
 %endif
-
-%files backend-pdf
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/atril/3/backends/libpdfdocument.so
-%{_libdir}/atril/3/backends/pdfdocument.atril-backend
 
 %if %{with xps}
 %files backend-xps
