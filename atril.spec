@@ -124,9 +124,7 @@ Summary(pl.UTF-8):	Dokumentacja API aplikacji Atril
 Group:		Documentation
 Requires:	gtk-doc-common
 Obsoletes:	mate-document-viewer-apidocs
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 Atril API documentation.
