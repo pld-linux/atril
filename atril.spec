@@ -15,12 +15,13 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.24.1
+Version:	1.26.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://pub.mate-desktop.org/releases/1.24/%{name}-%{version}.tar.xz
-# Source0-md5:	60f479b76f088ee8283edc2f9e977d1a
+Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
+# Source0-md5:	c23e5ba3d4470eb00f31f6f51fe7c519
+Patch0:		%{name}-kpathsea_config.patch
 URL:		http://mate-desktop.org/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -51,6 +52,7 @@ BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	synctex-devel >= 1.21
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel >= 1.0.0
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xz
@@ -232,6 +234,7 @@ Caja.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__gtkdocize}
@@ -292,7 +295,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f atril.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS ChangeLog NEWS README.md
 %attr(755,root,root) %{_bindir}/atril
 %attr(755,root,root) %{_bindir}/atril-previewer
 %attr(755,root,root) %{_bindir}/atril-thumbnailer
