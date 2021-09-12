@@ -22,7 +22,7 @@ Group:		X11/Applications/Graphics
 Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
 # Source0-md5:	c23e5ba3d4470eb00f31f6f51fe7c519
 Patch0:		%{name}-kpathsea_config.patch
-URL:		http://mate-desktop.org/
+URL:		https://wiki.mate-desktop.org/mate-desktop/applications/atril/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.14.0
@@ -47,6 +47,7 @@ BuildRequires:	libxml2-devel >= 1:2.5.0
 BuildRequires:	mate-common
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.22.0
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	synctex-devel >= 1.21
@@ -74,9 +75,7 @@ Suggests:	atril-backend-pdf
 Suggests:	atril-backend-ps
 Suggests:	atril-backend-xps
 Suggests:	gtk+3-cups >= 3.22
-# sr@Latn vs. sr@latin
-Obsoletes:	mate-document-viewer
-Conflicts:	glibc-misc < 6:2.7
+Obsoletes:	mate-document-viewer < 1.8.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		backendsdir	%{_libdir}/atril/3/backends
@@ -97,7 +96,7 @@ Requires:	cairo >= 1.14.0
 Requires:	glib2 >= 1:2.62.0
 Requires:	gtk+3 >= 3.22
 Requires:	synctex-libs >= 1.21
-Obsoletes:	mate-document-viewer-libs
+Obsoletes:	mate-document-viewer-libs < 1.8.0
 
 %description libs
 Atril shared libraries.
@@ -112,7 +111,7 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.62.0
 Requires:	gtk+3-devel >= 3.22
-Obsoletes:	mate-document-viewer-devel
+Obsoletes:	mate-document-viewer-devel < 1.8.0
 
 %description devel
 Header files for Atril libraries.
@@ -125,7 +124,7 @@ Summary:	Atril API documentation
 Summary(pl.UTF-8):	Dokumentacja API aplikacji Atril
 Group:		Documentation
 Requires:	gtk-doc-common
-Obsoletes:	mate-document-viewer-apidocs
+Obsoletes:	mate-document-viewer-apidocs < 1.8.0
 BuildArch:	noarch
 
 %description apidocs
@@ -140,7 +139,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów DjVu w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	djvulibre >= 3.5.17
-Obsoletes:	mate-document-viewer-backend-djvu
+Obsoletes:	mate-document-viewer-backend-djvu < 1.8.0
 
 %description backend-djvu
 View DJVu documents with Atril.
@@ -153,7 +152,7 @@ Summary:	View DVI documents with Atril
 Summary(pl.UTF-8):	Przeglądanie dokumentów DVI w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	mate-document-viewer-backend-dvi
+Obsoletes:	mate-document-viewer-backend-dvi < 1.8.0
 
 %description backend-dvi
 View DVI documents with Atril.
@@ -181,7 +180,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów PDF w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	poppler-glib >= 0.22.0
-Obsoletes:	mate-document-viewer-backend-pdf
+Obsoletes:	mate-document-viewer-backend-pdf < 1.8.0
 
 %description backend-pdf
 View PDF documents with Atril.
@@ -195,7 +194,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów PostScript w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libspectre >= 0.2.0
-Obsoletes:	mate-document-viewer-backend-ps
+Obsoletes:	mate-document-viewer-backend-ps < 1.8.0
 
 %description backend-ps
 View PostScript documents with Atril.
@@ -209,7 +208,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów XPS w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libgxps >= 0.2.1
-Obsoletes:	mate-document-viewer-backend-xps
+Obsoletes:	mate-document-viewer-backend-xps < 1.8.0
 
 %description backend-xps
 View XPS documents with Atril.
@@ -223,7 +222,7 @@ Summary(pl.UTF-8):	Rozszerzenie Atril dla zarządcy plików Caja
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	caja >= 1.17.1
-Obsoletes:	mate-file-manager-extension-atril
+Obsoletes:	mate-file-manager-extension-atril < 1.8.0
 
 %description -n caja-extension-atril
 Shows Atril document properties in Caja file manager.
