@@ -15,12 +15,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.26.0
+Version:	1.26.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
-# Source0-md5:	c23e5ba3d4470eb00f31f6f51fe7c519
+# Source0-md5:	8d56fb4699cda95baff90b8d40e2d9ed
 Patch0:		%{name}-kpathsea_config.patch
 URL:		https://wiki.mate-desktop.org/mate-desktop/applications/atril/
 BuildRequires:	autoconf >= 2.57
@@ -30,7 +30,7 @@ BuildRequires:	cairo-devel >= 1.14.0
 %{?with_djvu:BuildRequires:	djvulibre-devel >= 3.5.17}
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools >= 0.19.8
-BuildRequires:	glib2-devel >= 1:2.62.0
+BuildRequires:	glib2-devel >= 1:2.54.0
 BuildRequires:	gobject-introspection-devel >= 0.6
 BuildRequires:	gtk+3-devel >= 3.22
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
@@ -60,7 +60,7 @@ BuildRequires:	xz
 BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.62.0
+Requires(post,postun):	glib2 >= 1:2.54.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires:	%{name}-libs = %{version}-%{release}
@@ -93,7 +93,7 @@ Summary:	Atril shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone przeglądarki Atril
 Group:		X11/Libraries
 Requires:	cairo >= 1.14.0
-Requires:	glib2 >= 1:2.62.0
+Requires:	glib2 >= 1:2.54.0
 Requires:	gtk+3 >= 3.22
 Requires:	synctex-libs >= 1.21
 Obsoletes:	mate-document-viewer-libs < 1.8.0
@@ -109,7 +109,7 @@ Summary:	Header files for Atril libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek przeglądarki Atril
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.62.0
+Requires:	glib2-devel >= 1:2.54.0
 Requires:	gtk+3-devel >= 3.22
 Obsoletes:	mate-document-viewer-devel < 1.8.0
 
