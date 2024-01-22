@@ -95,6 +95,7 @@ Group:		X11/Libraries
 Requires:	cairo >= 1.14.0
 Requires:	glib2 >= 1:2.54.0
 Requires:	gtk+3 >= 3.22
+Requires:	gtk-webkit4 >= 2.6.0
 Requires:	synctex-libs >= 1.21
 Obsoletes:	mate-document-viewer-libs < 1.8.0
 
@@ -166,7 +167,6 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów ePub w przeglądarce Atril
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2 >= 1:2.5.0
-Requires:	gtk-webkit4 >= 2.6.0
 
 %description backend-epub
 View ePub documents with Atril.
