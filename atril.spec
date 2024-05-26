@@ -15,12 +15,12 @@
 Summary:	Atril - MATE Desktop document viewer for multiple document formats
 Summary(pl.UTF-8):	Atril - przeglądarka dokumentów w wielu formatach dla środowiska MATE
 Name:		atril
-Version:	1.26.2
+Version:	1.28.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
-# Source0-md5:	bb59ff5a8bddc31e5aa77f72d3d34503
+Source0:	https://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
+# Source0-md5:	e95c8aa600ec17548d473d2aa4e0635d
 Patch0:		%{name}-kpathsea_config.patch
 URL:		https://wiki.mate-desktop.org/mate-desktop/applications/atril/
 BuildRequires:	autoconf >= 2.57
@@ -45,6 +45,7 @@ BuildRequires:	libtiff-devel >= 3.6
 BuildRequires:	libtool >= 1:1.4.3
 BuildRequires:	libxml2-devel >= 1:2.5.0
 BuildRequires:	mate-common
+BuildRequires:	mate-desktop-devel >= 1.27.1
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.22.0
 BuildRequires:	rpm-build >= 4.6
@@ -68,6 +69,7 @@ Requires:	gtk+3 >= 3.22
 Requires:	libsecret >= 0.15
 Requires:	libtiff >= 3.6
 Requires:	libxml2 >= 1:2.5.0
+Requires:	mate-desktop >= 1.27.1
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	atril-backend-djvu
 Suggests:	atril-backend-dvi
